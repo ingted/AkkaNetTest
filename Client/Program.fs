@@ -29,10 +29,6 @@ let main _ =
                 return! loop()
             }
             loop()
-//    async {
-//        let! response = server <? Request.Add (1, 2)
-//        printfn "Got response: %+A" response
-//    } |> Async.RunSynchronously
 
     Console.ReadKey() |> ignore
     0
