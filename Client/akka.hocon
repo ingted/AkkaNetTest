@@ -6,13 +6,13 @@
   remote {
     log-remote-lifecycle-events = DEBUG
     helios.tcp {
-      hostname = "localhost"
+      hostname = "127.0.0.1"
       port = 0
     }
   }
   
   cluster {
-    seed-nodes = [ "akka.tcp://ActorSystem1@localhost:2551" ]
+    seed-nodes = [ "akka.tcp://ActorSystem1@127.0.0.1:2551" ]
     auto-down-unreachable-after = 30s
   }
 }

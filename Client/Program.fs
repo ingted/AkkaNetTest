@@ -1,11 +1,5 @@
-﻿open Akka
-open Akka.Actor
-open Akka.Remote
-open Akka.Configuration
-open Akka.Configuration.Hocon
-open System.IO
+﻿open System.IO
 open Akka.FSharp
-open Contracts
 open System
 open Contracts
 
@@ -15,20 +9,22 @@ let main _ =
         Configuration.parse (File.ReadAllText "akka.hocon")
         |> System.create "ActorSystem1"
 
-    let actor =
+    let _actor =
         spawn system "Client" <| fun (mb: Actor<Response>) ->
-            let inline info x = Logging.logInfo mb x
-            let server = select "akka.tcp://ActorSystem1@localhost:2551/user/Server" system
-            let rec loop() = actor {
-                info "Sending request..."
+            let server = select "akka.tcp://ActorSystem1@wl-legio-17:2551/user/Server" system
+            let startTime = DateTime.UtcNow
+            let rec loop count = actor {
                 server <! Request.Add (1, 2)
-                info "Request has been sent. Receiving response..."
-                let! msg = mb.Receive()
-                Logging.logInfof mb "Received: %+A" msg
-                Async.Sleep 1000 |> Async.RunSynchronously
-                return! loop()
+                //Logging.logInfo mb "Sent request."
+                let! _msg = mb.Receive()
+                //Logging.logInfo mb "Got response."
+                if count % 1000 = 0 then
+                    Logging.logInfof mb "%d total, %f /s" 
+                                        count 
+                                        (1000. * float count / (DateTime.UtcNow - startTime).TotalMilliseconds)
+                return! loop (count + 1)
             }
-            loop()
+            loop 0
 
     Console.ReadKey() |> ignore
     0
