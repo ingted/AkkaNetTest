@@ -5,3 +5,4 @@ nuget Akka.Cluster
 nuget Akka.FSharp
 nuget FSharp.Core
 nuget Helios ~> 1
+nuget Akka.Serialization.Wire

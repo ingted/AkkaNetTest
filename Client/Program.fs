@@ -11,7 +11,7 @@ let main _ =
 
     let _actor =
         spawn system "Client" <| fun (mb: Actor<Response>) ->
-            let server = select "akka.tcp://ActorSystem1@wl-legio-17:2551/user/Server" system
+            let server = select "akka.tcp://ActorSystem1@127.0.0.1:2551/user/Server" system
             let startTime = DateTime.UtcNow
             let rec loop count = 
                 actor {

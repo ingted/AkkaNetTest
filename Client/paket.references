@@ -2,3 +2,4 @@
 Akka.Cluster
 Akka.FSharp
 FSharp.Core
+Akka.Serialization.Wire
