@@ -2,6 +2,7 @@
 open Akka.FSharp
 open Contracts
 open System
+open Akka.Configuration
 
 [<EntryPoint>]
 let main _ = 
